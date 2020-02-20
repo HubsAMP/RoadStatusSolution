@@ -10,7 +10,7 @@ namespace RoadStatus.Service
     {
         private readonly IRoadStatusService _roadStatusService;
         private readonly IConsoleWrapper _consoleWrapper;
-        private StringBuilder _OutputMessage = new StringBuilder();
+        private StringBuilder _outputMessage = new StringBuilder();
 
         public PrintService(IRoadStatusService roadStatusService, IConsoleWrapper consoleWrapper)
         {
@@ -22,8 +22,7 @@ namespace RoadStatus.Service
         {
             if (string.IsNullOrEmpty(roadId))
             {
-                _consoleWrapper.Write("Road id argument has NOT been passed. Command should be RoadStatus.exe [RoadId]");
-                _OutputMessage.AppendLine("Road id argument has NOT been passed. Command should be RoadStatus.exe [RoadId]");
+                _outputMessage.AppendLine("Road id argument has NOT been passed. Command should be RoadStatus.exe [RoadId]");
                 return 1;
             }
 
@@ -31,13 +30,9 @@ namespace RoadStatus.Service
             {
                 var roadStatus = await _roadStatusService.GetRoadStatusAsync(roadId);
 
-                _consoleWrapper.Write($"The status of the {roadStatus.DisplayName} is as follows:");
-                _consoleWrapper.Write($"Road Status is {roadStatus.StatusSeverity}");
-                _consoleWrapper.Write($"Road Status Description is {roadStatus.StatusSeverityDescription}");
-
-                _OutputMessage.AppendLine($"The status of the {roadStatus.DisplayName} is as follows:");
-                _OutputMessage.AppendLine($"Road Status is {roadStatus.StatusSeverity}");
-                _OutputMessage.AppendLine($"Road Status Description is {roadStatus.StatusSeverityDescription}");
+                _outputMessage.AppendLine($"The status of the {roadStatus.DisplayName} is as follows:");
+                _outputMessage.AppendLine($"Road Status is {roadStatus.StatusSeverity}");
+                _outputMessage.AppendLine($"Road Status Description is {roadStatus.StatusSeverityDescription}");
 
                 return 0;
             }
@@ -45,14 +40,12 @@ namespace RoadStatus.Service
             {
                 if (ex.StatusCode == 404)
                 {
-                    _consoleWrapper.Write($"{roadId} is not a valid road");
-                    _OutputMessage.AppendLine($"{roadId} is not a valid road");
+                    _outputMessage.AppendLine($"{roadId} is not a valid road");
                 }
                 else
                 {
                     //TODO: LOG with details from Exception
-                    _consoleWrapper.Write($"There was an error running the application");
-                    _OutputMessage.AppendLine($"There was an error running the application");
+                    _outputMessage.AppendLine($"There was an error running the application");
                 }
 
                 return 1;
@@ -61,12 +54,12 @@ namespace RoadStatus.Service
 
         public void PrintOutPut()
         {
-            _consoleWrapper.Write(_OutputMessage.ToString());
+            _consoleWrapper.Write(_outputMessage.ToString());
         }
 
         public string GetOutputMessage()
         {
-            return _OutputMessage.ToString();
+            return _outputMessage.ToString();
         }
     }
 }
