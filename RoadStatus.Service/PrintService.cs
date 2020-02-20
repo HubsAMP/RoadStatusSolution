@@ -16,7 +16,7 @@ namespace RoadStatus.Service
 
         public async Task<int> PrintRoadStatusResponseAsync(string roadId)
         {
-            if (String.IsNullOrEmpty(roadId))
+            if (string.IsNullOrEmpty(roadId))
             {
                 Console.WriteLine("Road id argument has NOT been passed. Command should be RoadStatus.exe [RoadId]");
                 return 1;
