@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="ConsoleWrapper.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="HttpClientHandler.cs" />
     <Compile Include="Interfaces\IConfig.cs" />
+    <Compile Include="Interfaces\IConsoleWrapper.cs" />
     <Compile Include="Interfaces\IHttpHandler.cs" />
     <Compile Include="Interfaces\IPrintService.cs" />
     <Compile Include="Interfaces\IRoadStatusService.cs" />

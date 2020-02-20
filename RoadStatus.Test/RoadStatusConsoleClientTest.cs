@@ -113,7 +113,7 @@ namespace RoadStatus.Test
 
                 var response = await printer.PrintRoadStatusResponseAsync("A233");
 
-                string expected = "A233 is not a valid road"; ;
+                string expected = "A233 is not a valid road";
 
                 Assert.IsTrue(sw.ToString().Contains(expected));
             }

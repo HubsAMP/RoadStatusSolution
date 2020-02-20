@@ -8,17 +8,19 @@ namespace RoadStatus.Service
     public class PrintService : IPrintService
     {
         private readonly IRoadStatusService _roadStatusService;
+        private readonly IConsoleWrapper _consoleWrapper;
 
-        public PrintService(IRoadStatusService roadStatusService)
+        public PrintService(IRoadStatusService roadStatusService, IConsoleWrapper consoleWrapper)
         {
-            _roadStatusService = roadStatusService ?? throw new ArgumentNullException(nameof(roadStatusService)); ;
+            _roadStatusService = roadStatusService ?? throw new ArgumentNullException(nameof(roadStatusService));
+            _consoleWrapper = consoleWrapper;
         }
 
         public async Task<int> PrintRoadStatusResponseAsync(string roadId)
         {
             if (string.IsNullOrEmpty(roadId))
             {
-                Console.WriteLine("Road id argument has NOT been passed. Command should be RoadStatus.exe [RoadId]");
+                _consoleWrapper.Write("Road id argument has NOT been passed. Command should be RoadStatus.exe [RoadId]");
                 return 1;
             }
 
@@ -26,9 +28,9 @@ namespace RoadStatus.Service
             {
                 var roadStatus = await _roadStatusService.GetRoadStatusAsync(roadId);
 
-                Console.WriteLine($"The status of the {roadStatus.DisplayName} is as follows:");
-                Console.WriteLine($"Road Status is {roadStatus.StatusSeverity}");
-                Console.WriteLine($"Road Status Description is {roadStatus.StatusSeverityDescription}");
+                _consoleWrapper.Write($"The status of the {roadStatus.DisplayName} is as follows:");
+                _consoleWrapper.Write($"Road Status is {roadStatus.StatusSeverity}");
+                _consoleWrapper.Write($"Road Status Description is {roadStatus.StatusSeverityDescription}");
 
                 return 0;
             }
@@ -36,12 +38,12 @@ namespace RoadStatus.Service
             {
                 if (ex.StatusCode == 404)
                 {
-                    Console.WriteLine($"{roadId} is not a valid road");
+                    _consoleWrapper.Write($"{roadId} is not a valid road");
                 }
                 else
                 {
                     //TODO: LOG with details from Exception
-                    Console.WriteLine($"There was an error running the application");
+                    _consoleWrapper.Write($"There was an error running the application");
                 }
 
                 return 1;
