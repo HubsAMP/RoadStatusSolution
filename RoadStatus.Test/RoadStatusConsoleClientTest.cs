@@ -1,13 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
-using RoadStatus.Client;
 using RoadStatus.Service;
 using RoadStatus.Service.Exceptions;
 using RoadStatus.Service.Interfaces;
 using RoadStatus.Service.Models;
+using System.Threading.Tasks;
 
 namespace RoadStatus.Test
 {
