@@ -13,10 +13,10 @@ namespace RoadStatus.Client
     {
         public static void Main(string[] args)
         {
-            GetRoadStatus(args).Wait();
+            GetRoadStatusAsync(args).Wait();
         }
 
-        private static async Task GetRoadStatus(string[] args)
+        private static async Task GetRoadStatusAsync(string[] args)
         {
             var roadId = "";
             if (args.Length >= 1)
