@@ -13,6 +13,9 @@ namespace RoadStatus.Client.Autofac.Modules
             builder.Register(c => new RoadStatusService(new HttpClientHandler(), c.Resolve<IConfig>()))
                    .As<IRoadStatusService>();
 
+            builder.Register(c => new PrintService(new RoadStatusService(new HttpClientHandler(), c.Resolve<IConfig>())))
+                .As<IPrintService>();
+
             base.Load(builder);
         }
     }
