@@ -17,6 +17,7 @@ namespace RoadStatus.Test
         private RoadStatusDto _validRoadStatus;
         private Mock<IRoadStatusService> _mockRoadStatusService;
         private Mock<PrintService> _mockPrintService;
+        private Mock<IConsoleWrapper> _mockConsoleWrapper;
 
         [SetUp]
         public void Setup()
@@ -30,7 +31,8 @@ namespace RoadStatus.Test
             };
 
             _mockRoadStatusService = new Mock<IRoadStatusService>();
-            _mockPrintService = new Mock<PrintService>(_mockRoadStatusService.Object);
+            _mockConsoleWrapper = new Mock<IConsoleWrapper>();
+            _mockPrintService = new Mock<PrintService>(_mockRoadStatusService.Object, _mockConsoleWrapper.Object);
         }
 
         [Test]
@@ -46,7 +48,7 @@ namespace RoadStatus.Test
 
                 string expected = $"The status of the {_validRoadStatus.DisplayName} is as follows:";
 
-                Assert.IsTrue(sw.ToString().Contains(expected));
+                Assert.IsTrue(_mockPrintService.Object.GetOutputMessage().Contains(expected));
             }
         }
 
