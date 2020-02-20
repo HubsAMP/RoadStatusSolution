@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using RoadStatus.Client;
+using RoadStatus.Service;
 using RoadStatus.Service.Exceptions;
 using RoadStatus.Service.Interfaces;
 using RoadStatus.Service.Models;
@@ -14,6 +15,8 @@ namespace RoadStatus.Test
     public class RoadStatusConsoleClientTest
     {
         private RoadStatusDto _validRoadStatus;
+        private Mock<IRoadStatusService> _mockRoadStatusService;
+        private Mock<PrintService> _mockPrintService;
 
         [SetUp]
         public void Setup()
@@ -25,6 +28,9 @@ namespace RoadStatus.Test
                 StatusSeverity = "Good",
                 StatusSeverityDescription = "No Exceptional Delays"
             };
+
+            _mockRoadStatusService = new Mock<IRoadStatusService>();
+            _mockPrintService = new Mock<PrintService>(_mockRoadStatusService.Object);
         }
 
         [Test]
@@ -34,12 +40,9 @@ namespace RoadStatus.Test
             {
                 Console.SetOut(sw);
 
-                var mockRoadStatusService = new Mock<IRoadStatusService>();
-                mockRoadStatusService.Setup(s => s.GetRoadStatusAsync("A2")).Returns(Task.FromResult(_validRoadStatus));
+                _mockRoadStatusService.Setup(s => s.GetRoadStatusAsync("A2")).Returns(Task.FromResult(_validRoadStatus));
 
-                RoadStatusPrinter printer = new RoadStatusPrinter(mockRoadStatusService.Object);
-
-                var response = await printer.PrintRoadStatusResponseAsync("A2");
+                var response = await _mockPrintService.Object.PrintRoadStatusResponseAsync("A2");
 
                 string expected = $"The status of the {_validRoadStatus.DisplayName} is as follows:";
 
