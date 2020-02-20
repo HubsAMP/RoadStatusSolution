@@ -16,17 +16,13 @@ namespace RoadStatus.Client
         private static async Task GetRoadStatusAsync(string[] args)
         {
             var roadId = "";
+
             if (args.Length >= 1)
                 roadId = args[0];
 
-            //var roadStatusService = RoadStatusContainer.Container.Resolve<IRoadStatusService>();
             var printService = RoadStatusContainer.Container.Resolve<IPrintService>();
 
             var result = await printService.PrintRoadStatusResponseAsync(roadId);
-
-            //var roadStatusPrinter = new RoadStatusPrinter(roadStatusService);
-
-            //var result = await roadStatusPrinter.PrintRoadStatusResponseAsync(roadId);
 
             Environment.Exit(result);
         }
