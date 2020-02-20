@@ -39,7 +39,7 @@ namespace RoadStatus.Test
 
                 RoadStatusPrinter printer = new RoadStatusPrinter(mockRoadStatusService.Object);
 
-                var response = await printer.PrintRoadStatusResponse("A2");
+                var response = await printer.PrintRoadStatusResponseAsync("A2");
 
                 string expected = $"The status of the {_validRoadStatus.DisplayName} is as follows:";
 
@@ -59,7 +59,7 @@ namespace RoadStatus.Test
 
                 RoadStatusPrinter printer = new RoadStatusPrinter(mockRoadStatusService.Object);
 
-                var response = await printer.PrintRoadStatusResponse("A2");
+                var response = await printer.PrintRoadStatusResponseAsync("A2");
 
                 string expected = $"Road Status is {_validRoadStatus.StatusSeverity}";
 
@@ -79,7 +79,7 @@ namespace RoadStatus.Test
 
                 RoadStatusPrinter printer = new RoadStatusPrinter(mockRoadStatusService.Object);
 
-                var response = await printer.PrintRoadStatusResponse("A2");
+                var response = await printer.PrintRoadStatusResponseAsync("A2");
 
                 string expected = $"Road Status Description is {_validRoadStatus.StatusSeverityDescription}";
 
@@ -108,7 +108,7 @@ namespace RoadStatus.Test
 
                 RoadStatusPrinter printer = new RoadStatusPrinter(mockRoadStatusService.Object);
 
-                var response = await printer.PrintRoadStatusResponse("A233");
+                var response = await printer.PrintRoadStatusResponseAsync("A233");
 
                 string expected = "A233 is not a valid road"; ;
 
@@ -128,7 +128,7 @@ namespace RoadStatus.Test
 
                 RoadStatusPrinter printer = new RoadStatusPrinter(mockRoadStatusService.Object);
 
-                var result = await printer.PrintRoadStatusResponse("A2");
+                var result = await printer.PrintRoadStatusResponseAsync("A2");
 
                 Assert.AreEqual(result, 0);
             }
@@ -155,7 +155,7 @@ namespace RoadStatus.Test
 
                 RoadStatusPrinter printer = new RoadStatusPrinter(mockRoadStatusService.Object);
 
-                var result = await printer.PrintRoadStatusResponse("A233");
+                var result = await printer.PrintRoadStatusResponseAsync("A233");
 
                 Assert.AreEqual(result, 1);
             }

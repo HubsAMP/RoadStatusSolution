@@ -22,7 +22,7 @@ namespace RoadStatus.Client
             var roadStatusService = RoadStatusContainer.Container.Resolve<IRoadStatusService>();
             var roadStatusPrinter = new RoadStatusPrinter(roadStatusService);
 
-            var result = await roadStatusPrinter.PrintRoadStatusResponse(roadId);
+            var result = await roadStatusPrinter.PrintRoadStatusResponseAsync(roadId);
 
             Environment.Exit(result);
         }

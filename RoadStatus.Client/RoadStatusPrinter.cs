@@ -14,7 +14,7 @@ namespace RoadStatus.Client
             _roadStatusService = roadStatusService;
         }
 
-        public async Task<int> PrintRoadStatusResponse(string roadId)
+        public async Task<int> PrintRoadStatusResponseAsync(string roadId)
         {
             if (String.IsNullOrEmpty(roadId))
             {
